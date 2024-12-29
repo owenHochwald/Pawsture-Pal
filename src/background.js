@@ -135,13 +135,13 @@ function showNotification() {
     chrome.notifications.create({
         type: 'basic',
         iconUrl: chrome.runtime.getURL('icons/icon128.png'),
-        title: 'Posture Check! ',
+        title: 'Pawsture Check! 🐱',
         message: tip,
         priority: 2,
         requireInteraction: true,
         buttons: [
-            { title: ' Adjusted!' },
-            { title: ' Dismiss' }
+            { title: '✨ Adjusted!' },
+            { title: '❌ Dismiss' }
         ]
     }, (notificationId) => {
         if (chrome.runtime.lastError) {
@@ -157,35 +157,22 @@ function showNotification() {
 // Try to show popup window
 function tryPopupWindow(tip) {
     console.log('Attempting to show popup window...');
-    // Get current window to position the popup
-    chrome.windows.getAll({ windowTypes: ['normal'] }, (windows) => {
-        if (windows.length === 0) {
-            console.error('No windows found to position popup');
-            return;
+    
+    // Create popup window in a fixed position
+    chrome.windows.create({
+        url: `reminder.html?tip=${encodeURIComponent(tip)}`,
+        type: 'popup',
+        width: 340,
+        height: 440,
+        // Use fixed position instead of calculating from screen/window
+        left: 50,
+        top: 50
+    }, (window) => {
+        if (chrome.runtime.lastError) {
+            console.error('Popup creation error:', chrome.runtime.lastError);
+        } else {
+            console.log('Reminder popup created:', window);
         }
-
-        const currentWindow = windows[0];
-        const width = 340;
-        const height = 440;
-        
-        // Position in bottom right of the current window
-        const left = (currentWindow.left + currentWindow.width) - width;
-        const top = (currentWindow.top + currentWindow.height) - height;
-        
-        chrome.windows.create({
-            url: `reminder.html?tip=${encodeURIComponent(tip)}`,
-            type: 'popup',
-            width: width,
-            height: height,
-            left: Math.max(0, left),
-            top: Math.max(0, top)
-        }, (window) => {
-            if (chrome.runtime.lastError) {
-                console.error('Popup creation error:', chrome.runtime.lastError);
-            } else {
-                console.log('Reminder popup created:', window);
-            }
-        });
     });
 }
 

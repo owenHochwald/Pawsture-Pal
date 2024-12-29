@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Posture Pal",
+    "name": "Pawsture Pal",
     "version": "1.0.0",
-    "description": "A friendly cat-themed reminder to maintain good posture while working",
+    "description": "A friendly cat-themed reminder to maintain good pawsture while working! 🐱",
     "permissions": [
         "notifications",
         "storage",

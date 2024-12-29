@@ -1,13 +1,23 @@
-# Posture Reminder Chrome Extension
+# Pawsture Pal
 
-This Chrome extension reminds users to check their posture periodically and tracks the total number of reminders.
+A friendly cat-themed Chrome extension that reminds you to maintain good pawsture while working! Features cute cat emojis and encouraging messages to help you stay healthy and comfortable at your desk.
 
 ## Features
-- Periodic notifications to check your posture.
-- Total count of reminders displayed.
-- Simple popup UI for viewing stats and adjusting intervals.
+- Customizable reminder intervals
+- Adorable cat-themed notifications
+- Daily posture tracking
+- Modern, clean interface
+- Both popup and system notifications
 
 ## Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/<your-username>/posture-reminder-extension.git
+1. Download the extension
+2. Open Chrome and go to `chrome://extensions/`
+3. Enable "Developer mode"
+4. Click "Load unpacked" and select the extension folder
+
+## Support
+If you enjoy Pawsture Pal, consider supporting its development:
+[Buy me a coffee on Ko-fi](https://ko-fi.com/posturepal)
+
+## License
+MIT License - Feel free to use and modify!
