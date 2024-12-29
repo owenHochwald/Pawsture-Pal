@@ -4,10 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveButton = document.getElementById('save');
     const feedbackDiv = document.getElementById('feedback');
     const reminderCount = document.getElementById('reminder-count');
+    const timeRemaining = document.getElementById('time-remaining');
 
-    // Load saved settings
+    // Load saved settings and start timer
     loadSettings();
     loadReminderCount();
+    updateTimeRemaining();
+
+    // Update timer every second
+    setInterval(updateTimeRemaining, 1000);
 
     // Save settings when button is clicked
     saveButton.addEventListener('click', saveSettings);
@@ -59,6 +64,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadReminderCount() {
         chrome.storage.local.get(['reminderCount'], (result) => {
             reminderCount.textContent = result.reminderCount || 0;
+        });
+    }
+
+    // Function to update time remaining display
+    function updateTimeRemaining() {
+        chrome.alarms.get('postureReminder', (alarm) => {
+            if (alarm) {
+                const now = new Date().getTime();
+                const timeLeft = alarm.scheduledTime - now;
+                
+                if (timeLeft > 0) {
+                    const minutes = Math.floor(timeLeft / 60000);
+                    const seconds = Math.floor((timeLeft % 60000) / 1000);
+                    timeRemaining.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                } else {
+                    timeRemaining.textContent = '00:00';
+                }
+            } else {
+                timeRemaining.textContent = '--:--';
+            }
         });
     }
 });
