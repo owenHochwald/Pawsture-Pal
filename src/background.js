@@ -12,16 +12,16 @@ chrome.runtime.onInstalled.addListener(() => {
 
 // Array of posture tips and cat facts
 const tips = [
-    "Meow! Sit up straight like a proud cat! 🐱",
-    "Time to arch your back, just like I do! 🐈",
-    "Don't slouch! Even cats maintain perfect posture! 😺",
-    "Stretch your paws... I mean, arms! Take a break! 🐾",
-    "Keep your head high like a noble feline! 👑",
-    "A good posture makes you as graceful as a cat! ✨",
-    "Remember to keep your feet flat on the ground! 🐈‍⬛",
-    "Roll your shoulders back, just like a cat's stretch! 🌟",
-    "Your screen should be at eye level, human! 👀",
-    "Take a moment to stretch like I do! 🐱"
+    "Meow! Sit up straight like a proud cat! ",
+    "Time to arch your back, just like I do! ",
+    "Don't slouch! Even cats maintain perfect posture! ",
+    "Stretch your paws... I mean, arms! Take a break! ",
+    "Keep your head high like a noble feline! ",
+    "A good posture makes you as graceful as a cat! ",
+    "Remember to keep your feet flat on the ground! ",
+    "Roll your shoulders back, just like a cat's stretch! ",
+    "Your screen should be at eye level, human! ",
+    "Take a moment to stretch like I do! "
 ];
 
 // Initialize extension
@@ -131,33 +131,61 @@ function showNotification() {
     checkAndResetDaily();
     const tip = tips[Math.floor(Math.random() * tips.length)];
     
-    // Create popup window for notification
-    chrome.windows.create({
-        url: `src/reminder.html?tip=${encodeURIComponent(tip)}`,
-        type: 'popup',
-        width: 340,
-        height: 440,
-        left: Math.floor(screen.width - 340),
-        top: Math.floor(screen.height - 440)
-    }, (window) => {
+    // Try system notification first
+    chrome.notifications.create({
+        type: 'basic',
+        iconUrl: chrome.runtime.getURL('icons/icon128.png'),
+        title: 'Posture Check! ',
+        message: tip,
+        priority: 2,
+        requireInteraction: true,
+        buttons: [
+            { title: ' Adjusted!' },
+            { title: ' Dismiss' }
+        ]
+    }, (notificationId) => {
         if (chrome.runtime.lastError) {
-            console.error('Popup creation error:', chrome.runtime.lastError);
-            // Fallback to system notification if popup fails
-            chrome.notifications.create({
-                type: 'basic',
-                iconUrl: 'src/icons/icon128.png',
-                title: 'Posture Check! 🐱',
-                message: tip,
-                priority: 2,
-                requireInteraction: true,
-                buttons: [
-                    { title: '✨ Adjusted!' },
-                    { title: '❌ Dismiss' }
-                ]
-            });
+            console.error('System notification error:', chrome.runtime.lastError);
+            // If system notification fails, try popup window
+            tryPopupWindow(tip);
         } else {
-            console.log('Reminder popup created:', window);
+            console.log('System notification created:', notificationId);
         }
+    });
+}
+
+// Try to show popup window
+function tryPopupWindow(tip) {
+    console.log('Attempting to show popup window...');
+    // Get current window to position the popup
+    chrome.windows.getAll({ windowTypes: ['normal'] }, (windows) => {
+        if (windows.length === 0) {
+            console.error('No windows found to position popup');
+            return;
+        }
+
+        const currentWindow = windows[0];
+        const width = 340;
+        const height = 440;
+        
+        // Position in bottom right of the current window
+        const left = (currentWindow.left + currentWindow.width) - width;
+        const top = (currentWindow.top + currentWindow.height) - height;
+        
+        chrome.windows.create({
+            url: `reminder.html?tip=${encodeURIComponent(tip)}`,
+            type: 'popup',
+            width: width,
+            height: height,
+            left: Math.max(0, left),
+            top: Math.max(0, top)
+        }, (window) => {
+            if (chrome.runtime.lastError) {
+                console.error('Popup creation error:', chrome.runtime.lastError);
+            } else {
+                console.log('Reminder popup created:', window);
+            }
+        });
     });
 }
 
