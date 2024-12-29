@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Time for a Posture Check!</title>
+    <style>
+        body {
+            width: 300px;
+            height: 400px;
+            padding: 20px;
+            background-color: #fdf6f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .reminder-container {
+            text-align: center;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .cat-animation {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            background-color: #f0f8ff;
+            border-radius: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .cat-emoji {
+            font-size: 80px;
+        }
+
+        h1 {
+            color: #ff69b4;
+            margin: 10px 0;
+            font-size: 24px;
+        }
+
+        .message {
+            color: #666;
+            margin: 15px 0;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .adjust-button {
+            background-color: #ff69b4;
+            color: white;
+        }
+
+        .dismiss-button {
+            background-color: #f0f0f0;
+            color: #666;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="reminder-container">
+        <div class="cat-animation">
+            <span class="cat-emoji">🐱</span>
+        </div>
+        <h1>Posture Check!</h1>
+        <div class="message" id="tip-message">
+            <!-- Tip will be inserted here by JavaScript -->
+        </div>
+        <div class="buttons">
+            <button class="adjust-button" id="adjust-button">✨ I've Adjusted!</button>
+            <button class="dismiss-button" id="dismiss-button">❌ Dismiss</button>
+        </div>
+    </div>
+    <script src="reminder.js"></script>
+</body>
+</html>
