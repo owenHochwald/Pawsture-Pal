@@ -15,7 +15,8 @@ A friendly cat-themed Chrome extension that reminds you to maintain good pawstur
 1. Download the extension
 2. Open Chrome and go to `chrome://extensions/`
 3. Enable "Developer mode" in the top right
-4. Click "Load unpacked" and select the extension folder
+4. Click "Load unpacked" and select the src folder in the extension download
+5. Have fun developing!
 
 ## Usage
 - Click the extension icon to set your reminder interval
