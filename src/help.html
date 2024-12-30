@@ -7,22 +7,16 @@
         body {
             padding: 20px;
             font-family: Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: #fdf6f6;
+            color: #333;
             max-width: 800px;
             margin: 0 auto;
-        }
-
-        :root {
-            --bg-color: #fdf6f6;
-            --text-color: #333;
-            --border-color: #ffcdd2;
-            --hover-color: #ffebee;
+            line-height: 1.6;
         }
 
         .container {
             background-color: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
@@ -31,6 +25,16 @@
             color: #e57373;
             text-align: center;
             margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #e57373;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 20px;
+            border-bottom: 2px solid #ffebee;
+            padding-bottom: 8px;
         }
 
         .cat-emoji {
@@ -38,74 +42,35 @@
             vertical-align: middle;
         }
 
-        .help-section {
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .help-header {
-            background-color: #ffebee;
-            padding: 15px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-        }
-
-        .help-header:hover {
-            background-color: var(--hover-color);
-        }
-
-        .help-content {
-            padding: 15px;
-            display: none;
-            background-color: white;
-        }
-
-        .help-content.active {
-            display: block;
-        }
-
-        .help-content ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-
-        .help-content li {
-            margin: 10px 0;
-        }
-
-        .help-content img {
-            max-width: 100%;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .step {
-            background-color: #f8f8f8;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 4px;
+        .help-text {
+            margin-bottom: 25px;
+            color: #555;
         }
 
         .note {
             background-color: #fff3e0;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
             border-left: 4px solid #ff9800;
         }
 
-        .arrow {
-            transition: transform 0.3s ease;
+        .contact {
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px;
+            background-color: #ffebee;
+            border-radius: 6px;
         }
 
-        .active .arrow {
-            transform: rotate(180deg);
+        .contact a {
+            color: #e57373;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -113,120 +78,32 @@
     <div class="container">
         <h1>Pawsture Pal Help <span class="cat-emoji">🐱</span></h1>
         
-        <div class="help-section">
-            <div class="help-header" onclick="toggleSection(this)">
-                Not Receiving Notifications
-                <span class="arrow">▼</span>
-            </div>
-            <div class="help-content">
-                <p>If you're not receiving notifications, try these steps:</p>
-                <div class="step">1. Check Chrome Notification Settings:
-                    <ul>
-                        <li>Open Chrome Settings (⋮ menu > Settings)</li>
-                        <li>Go to "Privacy and security" > "Site Settings" > "Notifications"</li>
-                        <li>Make sure Chrome is allowed to send notifications in your system</li>
-                        <li>Find "Pawsture Pal" and ensure it's set to "Allow"</li>
-                    </ul>
-                </div>
-                <div class="step">2. Check System Notifications:
-                    <ul>
-                        <li>Windows: Settings > System > Notifications</li>
-                        <li>Make sure notifications are enabled for Chrome</li>
-                    </ul>
-                </div>
-                <div class="note">Note: After changing settings, you might need to restart Chrome for changes to take effect.</div>
-            </div>
+        <h2>Notification Troubleshooting</h2>
+        <div class="help-text">
+            If you're having trouble with notifications, here are a few common issues and solutions:
+            <br><br>
+            First, check if notifications are enabled in Chrome. Some extensions can block notifications, or they might be 
+            turned off in your system settings. To fix this:
+            <br><br>
+            1. Make sure Chrome notifications are enabled in your system settings (Windows Settings > System > Notifications)
+            <br>
+            2. Check if any other extensions might be blocking notifications
+            <br>
+            3. Try disabling and re-enabling the extension
+            <br><br>
+            Sometimes simply restarting Chrome can also resolve notification issues.
         </div>
 
-        <div class="help-section">
-            <div class="help-header" onclick="toggleSection(this)">
-                Notification Buttons Not Working
-                <span class="arrow">▼</span>
-            </div>
-            <div class="help-content">
-                <p>If notification buttons aren't responding:</p>
-                <ul>
-                    <li>Make sure Chrome is up to date</li>
-                    <li>Try disabling and re-enabling the extension</li>
-                    <li>Check if other Chrome notifications are working</li>
-                </ul>
-                <div class="note">Tip: Sometimes a simple Chrome restart can fix button interaction issues!</div>
-            </div>
+        <div class="note">
+            If you're using Windows 11, make sure Focus Assist isn't blocking notifications. 
+            You can check this in Windows Settings > System > Focus Assist.
         </div>
 
-        <div class="help-section">
-            <div class="help-header" onclick="toggleSection(this)">
-                Notifications Stop After Sleep/Hibernate
-                <span class="arrow">▼</span>
-            </div>
-            <div class="help-content">
-                <p>If notifications stop after your computer wakes up:</p>
-                <ul>
-                    <li>Click the extension icon to open the popup</li>
-                    <li>The extension should automatically reconnect</li>
-                    <li>If not, try clicking the "Check Now" button</li>
-                </ul>
-                <div class="note">Chrome sometimes pauses background processes during sleep. Opening the popup helps restart them.</div>
-            </div>
-        </div>
-
-        <div class="help-section">
-            <div class="help-header" onclick="toggleSection(this)">
-                Wrong Notification Timing
-                <span class="arrow">▼</span>
-            </div>
-            <div class="help-content">
-                <p>If notifications are coming at wrong intervals:</p>
-                <ul>
-                    <li>Check your interval setting in the extension popup</li>
-                    <li>Make sure Chrome is not in power saving mode</li>
-                    <li>Try setting a slightly longer interval (at least 1 minute)</li>
-                </ul>
-                <div class="note">Chrome may adjust notification timing to save battery. Using longer intervals helps maintain consistency.</div>
-            </div>
-        </div>
-
-        <div class="help-section">
-            <div class="help-header" onclick="toggleSection(this)">
-                Still Having Issues?
-                <span class="arrow">▼</span>
-            </div>
-            <div class="help-content">
-                <p>If you're still experiencing problems:</p>
-                <ul>
-                    <li>Try removing and reinstalling the extension</li>
-                    <li>Clear Chrome's cache and cookies</li>
-                    <li>Check if your antivirus is blocking notifications</li>
-                    <li>Make sure Chrome has system permissions</li>
-                </ul>
-                <div class="note">
-                    Contact us for support: <a href="mailto:support@pawsturepal.com">support@pawsturepal.com</a><br>
-                    Or visit our <a href="https://github.com/yourusername/pawsture-pal/issues">GitHub Issues</a> page
-                </div>
-            </div>
+        <div class="contact">
+            Still having issues? Contact us at <a href="mailto:support@pawsturepal.com">support@pawsturepal.com</a>
+            <br>
+            Please include your Chrome version and operating system when reporting issues.
         </div>
     </div>
-
-    <script>
-        function toggleSection(header) {
-            const content = header.nextElementSibling;
-            const arrow = header.querySelector('.arrow');
-            
-            // Close all other sections
-            document.querySelectorAll('.help-content').forEach(section => {
-                if (section !== content && section.classList.contains('active')) {
-                    section.classList.remove('active');
-                    section.previousElementSibling.querySelector('.arrow').classList.remove('active');
-                }
-            });
-
-            // Toggle current section
-            content.classList.toggle('active');
-            arrow.classList.toggle('active');
-        }
-
-        // Open first section by default
-        document.querySelector('.help-header').click();
-    </script>
 </body>
 </html>
