@@ -2,34 +2,27 @@
     "manifest_version": 3,
     "name": "Pawsture Pal",
     "version": "1.0.0",
-    "description": "A friendly cat-themed reminder to maintain good pawsture while working! 🐱",
+    "description": "A friendly cat-themed reminder to maintain good pawsture while working! ",
     "permissions": [
         "notifications",
         "storage",
-        "alarms",
-        "windows"
+        "alarms"
     ],
+    "background": {
+        "service_worker": "background.js"
+    },
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
             "16": "icons/icon16.png",
             "48": "icons/icon48.png",
             "128": "icons/icon128.png"
-        },
-        "default_title": "Posture Pal"
+        }
     },
+    "options_page": "options.html",
     "icons": {
         "16": "icons/icon16.png",
         "48": "icons/icon48.png",
         "128": "icons/icon128.png"
-    },
-    "background": {
-        "service_worker": "background.js",
-        "type": "module"
-    },
-    "options_page": "options.html",
-    "web_accessible_resources": [{
-        "resources": ["icons/*", "reminder.html"],
-        "matches": ["chrome-extension://*/*"]
-    }]
+    }
 }

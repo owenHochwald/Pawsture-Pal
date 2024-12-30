@@ -1,12 +1,10 @@
 // Keep service worker active
 chrome.runtime.onStartup.addListener(() => {
-    console.log('Service worker starting up...');
     initializeExtension();
 });
 
 // Initialize on install
 chrome.runtime.onInstalled.addListener(() => {
-    console.log('Extension installed/updated...');
     initializeExtension();
 });
 
@@ -27,9 +25,6 @@ const tips = [
 // Initialize extension
 function initializeExtension() {
     chrome.storage.local.get(['reminderCount', 'interval', 'theme', 'lastResetDate', 'yesterdayCount'], (result) => {
-        console.log('Initializing with stored data:', result);
-        
-        // Set default values if not present
         const defaults = {
             reminderCount: 0,
             interval: 30,
@@ -47,7 +42,6 @@ function initializeExtension() {
         });
 
         if (Object.keys(updates).length > 0) {
-            console.log('Setting default values:', updates);
             chrome.storage.local.set(updates);
         }
 
@@ -61,7 +55,6 @@ function checkAndResetDaily() {
     chrome.storage.local.get(['lastResetDate', 'reminderCount'], (result) => {
         const today = new Date().toDateString();
         if (result.lastResetDate !== today) {
-            console.log('Resetting daily counter. Previous count:', result.reminderCount);
             chrome.storage.local.set({
                 yesterdayCount: result.reminderCount || 0,
                 reminderCount: 0,
@@ -73,7 +66,6 @@ function checkAndResetDaily() {
 
 // Handle alarm
 chrome.alarms.onAlarm.addListener((alarm) => {
-    console.log('Alarm triggered:', alarm);
     if (alarm.name === 'postureReminder') {
         checkAndResetDaily();
         showNotification();
@@ -86,7 +78,6 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
 // Handle messages from popup
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    console.log('Received message:', message);
     if (message.type === 'updateInterval') {
         createAlarm(message.interval);
     } else if (message.type === 'checkPosture') {
@@ -95,7 +86,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         // Increment reminder count when user clicks "I've Adjusted!"
         chrome.storage.local.get(['reminderCount'], (result) => {
             const newCount = (result.reminderCount || 0) + 1;
-            console.log('Incrementing reminder count to:', newCount);
             chrome.storage.local.set({ reminderCount: newCount });
         });
     }
@@ -103,13 +93,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // Create alarm function
 function createAlarm(interval) {
-    console.log('Creating alarm with interval:', interval);
     chrome.alarms.clear('postureReminder', () => {
-        // Convert interval to milliseconds for more precise timing
         let delayInMinutes = parseFloat(interval);
         
         if (delayInMinutes < 0.5) {
-            console.warn('Interval too short, setting to minimum 0.5 minutes');
             delayInMinutes = 0.5;
         }
 
@@ -117,73 +104,34 @@ function createAlarm(interval) {
             delayInMinutes: delayInMinutes,
             periodInMinutes: delayInMinutes
         });
-
-        // Verify alarm was created
-        chrome.alarms.get('postureReminder', (alarm) => {
-            console.log('Alarm created:', alarm);
-        });
     });
 }
 
 // Show notification function
 function showNotification() {
-    console.log('Attempting to show notification...');
     checkAndResetDaily();
     const tip = tips[Math.floor(Math.random() * tips.length)];
     
-    // Try system notification first
     chrome.notifications.create({
         type: 'basic',
         iconUrl: chrome.runtime.getURL('icons/icon128.png'),
-        title: 'Pawsture Check! 🐱',
+        title: 'Pawsture Check! ',
         message: tip,
         priority: 2,
         requireInteraction: true,
         buttons: [
-            { title: '✨ Adjusted!' },
-            { title: '❌ Dismiss' }
+            { title: ' Adjusted!' },
+            { title: ' Dismiss' }
         ]
-    }, (notificationId) => {
-        if (chrome.runtime.lastError) {
-            console.error('System notification error:', chrome.runtime.lastError);
-            // If system notification fails, try popup window
-            tryPopupWindow(tip);
-        } else {
-            console.log('System notification created:', notificationId);
-        }
-    });
-}
-
-// Try to show popup window
-function tryPopupWindow(tip) {
-    console.log('Attempting to show popup window...');
-    
-    // Create popup window in a fixed position
-    chrome.windows.create({
-        url: `reminder.html?tip=${encodeURIComponent(tip)}`,
-        type: 'popup',
-        width: 340,
-        height: 440,
-        // Use fixed position instead of calculating from screen/window
-        left: 50,
-        top: 50
-    }, (window) => {
-        if (chrome.runtime.lastError) {
-            console.error('Popup creation error:', chrome.runtime.lastError);
-        } else {
-            console.log('Reminder popup created:', window);
-        }
     });
 }
 
 // Handle notification button clicks
 chrome.notifications.onButtonClicked.addListener((notificationId, buttonIndex) => {
-    console.log('Notification button clicked:', { notificationId, buttonIndex });
     if (buttonIndex === 0) { // Adjusted button
         // Increment reminder count
         chrome.storage.local.get(['reminderCount'], (result) => {
             const newCount = (result.reminderCount || 0) + 1;
-            console.log('Incrementing reminder count to:', newCount);
             chrome.storage.local.set({ reminderCount: newCount });
         });
     }
