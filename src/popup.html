@@ -26,9 +26,9 @@
 
         body {
             width: 300px;
-            padding: 20px;
+            padding: 15px;
+            font-family: Arial, sans-serif;
             background-color: var(--bg-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             color: var(--text-color);
             transition: all 0.3s ease;
@@ -43,37 +43,18 @@
         }
 
         .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             color: var(--primary-color);
             text-align: center;
-            margin: 0;
+            margin-top: 0;
+            margin-bottom: 20px;
             font-size: 24px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .cat-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 75px;
-            background-color: var(--card-bg);
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .cat-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         .timer-display {
@@ -81,9 +62,8 @@
             padding: 15px;
             border-radius: 10px;
             text-align: center;
-            width: 100%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
         }
 
         .time-remaining {
@@ -92,127 +72,153 @@
             font-weight: bold;
         }
 
-        .settings-section {
-            width: 100%;
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        .interval-container {
+            margin-bottom: 20px;
+            text-align: center;
         }
 
-        .input-group {
-            margin: 10px 0;
-        }
-
-        label {
+        .interval-container label {
             display: block;
             margin-bottom: 5px;
             color: var(--secondary-text);
         }
 
-        input[type="number"] {
-            width: calc(100% - 20px);
-            padding: 8px;
-            border: 2px solid var(--border-color);
-            border-radius: 5px;
-            outline: none;
-            font-size: 14px;
+        .interval-container input {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            text-align: center;
             background: var(--card-bg);
             color: var(--text-color);
         }
 
-        input[type="number"]:focus {
-            border-color: var(--primary-color);
+        .stats {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
         }
 
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: var(--primary-color);
-            color: white;
+        .yesterday {
+            font-size: 0.9em;
+            color: var(--secondary-text);
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .button-row button {
+            flex: 1;
+            padding: 8px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: bold;
-        }
-
-        button:hover {
-            background-color: var(--hover-color);
-            transform: translateY(-1px);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .stats {
-            text-align: center;
-            color: var(--secondary-text);
             font-size: 14px;
-            background: var(--card-bg);
-            padding: 10px;
-            border-radius: 5px;
-            width: 100%;
+            color: white;
         }
 
-        .feedback {
-            display: none;
-            text-align: center;
-            color: #4CAF50;
-            margin-top: 10px;
-            font-weight: bold;
+        #optionsButton {
+            background-color: #e57373;
+        }
+
+        #helpButton {
+            background-color: #81c784;
         }
 
         .donate-button {
-            display: inline-block;
-            background-color: #ff5f5f;
+            display: block;
+            width: 100%;
+            padding: 8px;
+            background-color: #7986cb;
             color: white;
-            padding: 8px 16px;
-            border-radius: 4px;
             text-decoration: none;
-            margin-top: 15px;
-            font-weight: 600;
-            transition: transform 0.2s;
+            border-radius: 5px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover, .donate-button:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        #optionsButton:hover {
+            background-color: #ef9a9a;
+        }
+
+        #helpButton:hover {
+            background-color: #66bb6a;
         }
 
         .donate-button:hover {
-            transform: translateY(-2px);
+            background-color: #5c6bc0;
+        }
+
+        .cat-emoji {
+            font-size: 1.2em;
+            vertical-align: middle;
+        }
+
+        .cat-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 2px solid var(--primary-color);
+            overflow: hidden;
+        }
+
+        .cat-image span {
+            font-size: 60px;
+            line-height: 1;
         }
     </style>
 </head>
 <body>
-    <div class="theme-toggle" id="theme-toggle">&#9798;</div>
+    <div class="theme-toggle" id="theme-toggle">🌓</div>
     <div class="container">
-        <h1>Posture Pal</h1>
+        <h1>Pawsture Pal <span class="cat-emoji"></span></h1>
+        
         <div class="cat-image">
-            <span style="font-size: 80px;">&#128049;</span>
+            <span>😺</span>
         </div>
+
         <div class="timer-display">
             <div>Next reminder in:</div>
             <div class="time-remaining" id="time-remaining">--:--</div>
         </div>
-        <div class="settings-section">
-            <div class="input-group">
-                <label for="interval">Reminder Interval (minutes):</label>
-                <input type="number" 
-                       id="interval" 
-                       min="0.5" 
-                       max="120" 
-                       step="0.5" 
-                       value="30">
-                <small class="hint">You can use decimals (e.g., 0.5 for 30 seconds)</small>
-            </div>
-            <button id="save">Save Settings</button>
-            <div id="feedback" class="feedback">Settings saved!</div>
+
+        <div class="interval-container">
+            <label for="interval">Reminder Interval (minutes)</label>
+            <input type="number" id="interval" min="0.5" step="0.5" value="30">
         </div>
+
         <div class="stats">
             <div>Today's adjustments: <span id="reminder-count">0</span></div>
             <div class="yesterday">Yesterday's total: <span id="yesterday-count">0</span></div>
         </div>
-        <center>
-            <a href="#" id="donate-button" class="donate-button">Support on Ko-fi ☕</a>
-        </center>
+
+        <div class="button-row">
+            <button id="optionsButton">Options ⚙️</button>
+            <button id="helpButton">Help 🐾</button>
+        </div>
+
+        <a href="#" id="donate-button" class="donate-button">Support on Ko-fi ☕</a>
     </div>
     <script src="popup.js"></script>
 </body>

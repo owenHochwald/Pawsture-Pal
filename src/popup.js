@@ -1,91 +1,61 @@
 // DOM Elements
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
+    // Get UI elements
     const intervalInput = document.getElementById('interval');
-    const saveButton = document.getElementById('save');
-    const feedbackDiv = document.getElementById('feedback');
+    const optionsButton = document.getElementById('optionsButton');
+    const helpButton = document.getElementById('helpButton');
     const reminderCount = document.getElementById('reminder-count');
     const yesterdayCount = document.getElementById('yesterday-count');
     const timeRemaining = document.getElementById('time-remaining');
     const themeToggle = document.getElementById('theme-toggle');
+    const donateButton = document.getElementById('donate-button');
 
     // Load saved settings and start timer
     loadSettings();
-    loadReminderCount();
-    loadYesterdayCount();
     loadTheme();
     updateTimeRemaining();
 
     // Update timer every second
     setInterval(updateTimeRemaining, 1000);
 
-    // Save settings when button is clicked
-    saveButton.addEventListener('click', saveSettings);
+    // Save interval when changed
+    intervalInput.addEventListener('change', function() {
+        let interval = parseFloat(this.value);
+        if (interval < 0.5) interval = 0.5;
+        chrome.storage.local.set({ interval: interval });
+        chrome.runtime.sendMessage({ type: 'updateInterval', interval: interval });
+    });
 
     // Theme toggle
     themeToggle.addEventListener('click', toggleTheme);
 
-    // Handle donate button click
-    document.getElementById('donate-button').addEventListener('click', (e) => {
-        e.preventDefault();
-        chrome.tabs.create({
-            url: 'https://ko-fi.com/posturepal'
-        });
+    // Options button
+    optionsButton.addEventListener('click', function() {
+        chrome.runtime.openOptionsPage();
+    });
+
+    // Help button
+    helpButton.addEventListener('click', function() {
+        chrome.tabs.create({ url: 'help.html' });
+    });
+
+    // Donate button
+    donateButton.addEventListener('click', function() {
+        chrome.tabs.create({ url: 'https://ko-fi.com/posturepal' });
     });
 
     // Function to load saved settings
     function loadSettings() {
-        chrome.storage.local.get(['interval'], (result) => {
-            if (result.interval) {
-                intervalInput.value = result.interval;
+        chrome.storage.local.get(['interval', 'reminderCount', 'yesterdayCount'], function(data) {
+            if (data.interval) {
+                intervalInput.value = data.interval;
             }
-        });
-    }
-
-    // Function to save settings
-    function saveSettings() {
-        const interval = parseFloat(intervalInput.value);
-        
-        // Validate interval
-        if (isNaN(interval) || interval < 0.5 || interval > 120) {
-            alert('Please enter an interval between 0.5 and 120 minutes.');
-            return;
-        }
-
-        // Save to storage
-        chrome.storage.local.set({
-            interval: interval
-        }, () => {
-            // Show feedback
-            showFeedback();
-            
-            // Update alarm
-            chrome.runtime.sendMessage({
-                type: 'updateInterval',
-                interval: interval
-            });
-        });
-    }
-
-    // Function to show feedback
-    function showFeedback() {
-        feedbackDiv.style.display = 'block';
-        feedbackDiv.textContent = 'Settings saved!';
-        setTimeout(() => {
-            feedbackDiv.style.display = 'none';
-        }, 2000);
-    }
-
-    // Function to load reminder count
-    function loadReminderCount() {
-        chrome.storage.local.get(['reminderCount'], (result) => {
-            reminderCount.textContent = result.reminderCount || 0;
-        });
-    }
-
-    // Function to load yesterday's count
-    function loadYesterdayCount() {
-        chrome.storage.local.get(['yesterdayCount'], (result) => {
-            yesterdayCount.textContent = result.yesterdayCount || 0;
+            if (data.reminderCount !== undefined) {
+                reminderCount.textContent = data.reminderCount;
+            }
+            if (data.yesterdayCount !== undefined) {
+                yesterdayCount.textContent = data.yesterdayCount;
+            }
         });
     }
 
@@ -102,8 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     timeRemaining.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
                 } else {
                     timeRemaining.textContent = '00:00';
-                    // Trigger notification if time is up
-                    chrome.runtime.sendMessage({ type: 'checkPosture' });
                 }
             } else {
                 timeRemaining.textContent = '--:--';
