@@ -18,7 +18,17 @@ const tips = [
     "Remember to keep your feet flat on the ground! ",
     "Roll your shoulders back, just like a cat's stretch! ",
     "Your screen should be at eye level, human! ",
-    "Take a moment to stretch like I do! "
+    "Take a moment to stretch like I do! ",
+    "Channel your inner cat and stand tall!",
+    "A feline's poise comes from proper posture—let's mimic that!",
+    "Sit up straight, just like a cat on the prowl!",
+    "Don't forget to align your spine—feline grace starts there!",
+    "Stay limber, stretch those legs and paws!",
+    "Good posture is key to being as sleek as a cat!",
+    "Keep your shoulders relaxed, like a cat lounging in the sun!",
+    "Take a break and stretch, just like a cat before a nap!",
+    "A cat’s posture is always on point—yours can be too!",
+    "Cats never hunch—neither should you!"
 ];
 
 // Initialize extension
