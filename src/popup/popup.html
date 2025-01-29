@@ -170,18 +170,27 @@
         }
 
         .cat-image {
-            width: 100px;
-            height: 100px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             background-color: var(--card-bg);
             margin: 10px auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border: 2px solid var(--primary-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--primary-color);
             overflow: hidden;
         }
+
+        .cat-image img {
+            width: 80%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 30%;
+            display: block;
+            margin: 0 auto; 
+        }        
 
         .cat-image span {
             font-size: 60px;
@@ -195,7 +204,9 @@
         <h1>Pawsture Pal <span class="cat-emoji"></span></h1>
         
         <div class="cat-image">
-            <span>😺</span>
+            <span>
+                <img src="../icons/orange_cat.png">
+            </span>
         </div>
 
         <div class="timer-display">
