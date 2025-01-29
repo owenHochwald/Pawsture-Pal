@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('donate-button').addEventListener('click', (e) => {
         e.preventDefault();
         chrome.tabs.create({
-            url: 'https://ko-fi.com/posturepal'
+            url: 'https://ko-fi.com/pawsturepal'
         });
     });
 });
