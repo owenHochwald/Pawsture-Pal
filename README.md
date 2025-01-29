@@ -1,6 +1,8 @@
 # Pawsture Pal 🐱
 
 A friendly cat-themed Chrome extension that reminds you to maintain good pawsture while working! Features cute cat emojis and encouraging messages to help you stay healthy and comfortable at your desk.
+### Link to Chrome Extension
+[Chrome extension for Pawsture Pal](https://chromewebstore.google.com/detail/pawsture-pal/ghdnbollliflcjoeglpnlecdhcbcbopf)
 
 ## Features
 - 🕒 Customizable reminder intervals
