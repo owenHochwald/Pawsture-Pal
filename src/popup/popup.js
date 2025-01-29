@@ -9,11 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const timeRemaining = document.getElementById('time-remaining');
     const themeToggle = document.getElementById('theme-toggle');
     const donateButton = document.getElementById('donate-button');
+    const catImage = document.getElementById('cat-image');
 
     // Load saved settings and start timer
     loadSettings();
     loadTheme();
     updateTimeRemaining();
+
 
     // Update timer every second
     setInterval(updateTimeRemaining, 1000);
@@ -43,6 +45,18 @@ document.addEventListener('DOMContentLoaded', function() {
     donateButton.addEventListener('click', function() {
         chrome.tabs.create({ url: 'https://ko-fi.com/posturepal' });
     });
+
+    function updateCatImage() {
+        if (document.body.getAttribute('data-theme') === 'dark') {
+            catImage.src = '../icons/black_cat.png';
+            catImage.classList.remove('ornage-cat');
+            catImage.classList.add('black-cat');
+        } else {
+            catImage.src = '../icons/orange_cat.png';
+            catImage.classList.remove('black-cat');
+            catImage.classList.add('orange-cat');
+        }
+    }
 
     // Function to load saved settings
     function loadSettings() {
@@ -89,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.setAttribute('data-theme', 'light');
                 themeToggle.textContent = '🌓';
             }
+            updateCatImage();
         });
     }
 
@@ -100,5 +115,6 @@ document.addEventListener('DOMContentLoaded', function() {
         themeToggle.textContent = newTheme === 'dark' ? '🌞' : '🌓';
         
         chrome.storage.local.set({ theme: newTheme });
+        updateCatImage();
     }
 });

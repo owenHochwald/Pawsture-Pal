@@ -181,6 +181,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--primary-color);
             overflow: hidden;
+            transition: all 0.3s ease;  /* Smooth transition for style changes */
         }
 
         .cat-image img {
@@ -191,11 +192,25 @@
             display: block;
             margin: 0 auto; 
         }        
-
-        .cat-image span {
-            font-size: 60px;
-            line-height: 1;
+        
+        /* Dark theme styles */
+        .dark-theme {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
         }
+        
+        /* Light theme styles */
+        .light-theme {
+            width: 100px;
+            height: 100px;
+            border-radius: 30%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: scale(1);
+        }
+
     </style>
 </head>
 <body>
@@ -203,10 +218,8 @@
     <div class="container">
         <h1>Pawsture Pal <span class="cat-emoji"></span></h1>
         
-        <div class="cat-image">
-            <span>
-                <img src="../icons/orange_cat.png">
-            </span>
+        <div class="cat-image light-theme">
+            <img src="../icons/orange_cat.png" id="cat-image" alt="Pawsture Pal Icon">
         </div>
 
         <div class="timer-display">
