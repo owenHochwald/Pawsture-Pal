@@ -11,7 +11,6 @@ chrome.runtime.onInstalled.addListener(() => {
 // Array of posture tips and cat facts
 const tips = [
     "Meow! Sit up straight like a proud cat! ",
-    "Time to arch your back, just like I do! ",
     "Don't slouch! Even cats maintain perfect posture! ",
     "Stretch your paws... I mean, arms! Take a break! ",
     "Keep your head high like a noble feline! ",
@@ -110,19 +109,23 @@ function createAlarm(interval) {
 // Show notification function
 function showNotification() {
     checkAndResetDaily();
-    const tip = tips[Math.floor(Math.random() * tips.length)];
-    
-    chrome.notifications.create({
-        type: 'basic',
-        iconUrl: chrome.runtime.getURL('icons/icon128.png'),
-        title: 'Pawsture Check! ',
-        message: tip,
-        priority: 2,
-        requireInteraction: true,
-        buttons: [
-            { title: ' Adjusted!' },
-            { title: ' Dismiss' }
-        ]
+
+    chrome.notifications.getAll((notifications) => {
+        if (Object.keys(notifications).length === 0) {
+            const tip = tips[Math.floor(Math.random() * tips.length)];
+            chrome.notifications.create({
+                type: 'basic',
+                iconUrl: chrome.runtime.getURL('icons/icon128.png'),
+                title: 'Pawsture Check! ',
+                message: tip,
+                priority: 2,
+                requireInteraction: true,
+                buttons: [
+                    { title: ' Adjusted!' },
+                    { title: ' Dismiss' }
+                ]
+            });
+        }
     });
 }
 

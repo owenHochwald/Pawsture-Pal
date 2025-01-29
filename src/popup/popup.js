@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Help button
     helpButton.addEventListener('click', function() {
-        chrome.tabs.create({ url: 'help.html' });
+        chrome.tabs.create({ url: 'help/help.html' });
     });
 
     // Donate button
